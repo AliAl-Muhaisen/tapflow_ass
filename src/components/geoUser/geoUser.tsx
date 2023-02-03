@@ -4,36 +4,152 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import { useAppSelector, useAppDispatch } from "../../hooks/redux";
 import { fetchCountriesData } from "../../store/country/countrySlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { FormInput, CountryInput } from "../formik/inputs";
+import ImageInput from "../formik/imageInput";
+import { useFormik } from "formik";
+import { geoUserValidation } from "../../lib/validation";
+
+interface inputForm {
+  name: string;
+}
+
 const GeoUser = (props: any) => {
   const countries = useAppSelector((state) => state.countrySlice.countries);
+  const [cities, setCities] = useState<string[]>([]);
+
   const isFetched: boolean = useAppSelector(
     (state) => state.countrySlice.isFetched
   );
   const dispatch = useAppDispatch();
+
+  const onSubmit = async (values: inputForm, actions: any) => {
+    console.log(values);
+  };
+
+  const { handleSubmit, getFieldMeta, getFieldProps, getFieldHelpers } =
+    useFormik({
+      initialValues: {
+        name: "",
+        country: null,
+        cities: null,
+        image: undefined,
+        link: "",
+      },
+
+      validationSchema: geoUserValidation,
+      onSubmit,
+    });
+
   useEffect(() => {
     if (!isFetched) {
       dispatch(fetchCountriesData());
-      // setIsFetched(true);
     }
   }, []);
-  const dataElement = countries.map((country, index) => {
-    // console.log(index);
-    return <p key={index}>{country.name}</p>;
-  });
+
+  const changeCities = (countryName: string) => {
+    countries.find((country) => {
+      if (country.name === countryName) {
+        setCities(country.cities);
+        return country.cities;
+      }
+    });
+  };
 
   return (
     <Box>
       <Grid container justifyContent={"center"} my={5} px={1}>
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} color={"primary"}>
-            <form noValidate>
-              {" "}
-              <h1>countries</h1>
-              <h1>{isFetched.toString()}</h1>
-              {dataElement}
-            </form>
-          </Paper>
+          <form noValidate onSubmit={handleSubmit}>
+            <Paper elevation={3} color={"primary"}>
+              <Grid
+                container
+                sx={{
+                  py: {
+                    sm: 4,
+                    xs: 3,
+                  },
+                  px: {
+                    sm: 4,
+                    xs: 1.8,
+                  },
+                }}
+                justifyContent={"space-between"}
+              >
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  px={0.5}
+                  my={0.5}
+                  justifyContent={"space-around"}
+                  display={"flex"}
+                >
+                  <ImageInput
+                    {...getFieldMeta("image")}
+                    {...getFieldProps("image")}
+                    {...getFieldHelpers("image")}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} px={0.5} my={0.5}>
+                  <FormInput
+                    error={getFieldMeta("name").error}
+                    isTouched={getFieldMeta("name").touched}
+                    key="name"
+                    label="User Name"
+                    name={getFieldProps("name").name}
+                    onBlur={getFieldProps("name").onBlur}
+                    onChange={getFieldProps("name").onChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} px={0.5} my={0.5}>
+                  <FormInput
+                    error={getFieldMeta("link").error}
+                    isTouched={getFieldMeta("link").touched}
+                    key="link"
+                    label="Link"
+                    name={getFieldProps("link").name}
+                    onBlur={getFieldProps("link").onBlur}
+                    onChange={getFieldProps("link").onChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} px={0.5} my={0.5}>
+                  <CountryInput
+                    key="country"
+                    options={[
+                      ...countries.map((country) => {
+                        return country.name;
+                      }),
+                    ]}
+                    {...getFieldMeta("country")}
+                    {...getFieldProps("country")}
+                    {...getFieldHelpers("country")}
+                    label={"Choose a Country"}
+                    changeCities={(value: string) => changeCities(value)}
+                    multiple={false}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} px={0.5} my={0.5}>
+                  <CountryInput
+                    key="cities"
+                    options={[...cities]}
+                    {...getFieldMeta("cities")}
+                    {...getFieldProps("cities")}
+                    {...getFieldHelpers("cities")}
+                    label={"Choose a Cities"}
+                    // changeCities={(value){}}
+                    multiple={true}
+                  />
+                </Grid>
+              </Grid>
+
+              <Grid item xs={12} my={2}>
+                <Button fullWidth variant="contained" type="submit">
+                  Submit
+                </Button>
+              </Grid>
+            </Paper>
+          </form>
         </Grid>
       </Grid>
     </Box>

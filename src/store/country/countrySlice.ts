@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  PayloadAction,
+  createAsyncThunk,
+  current,
+} from "@reduxjs/toolkit";
 import type { RootState } from "../index";
 import axios, { AxiosResponse } from "axios";
 
@@ -25,7 +30,6 @@ export const fetchCountriesData = createAsyncThunk("countries", async () => {
       "https://countriesnow.space/api/v0.1/countries"
     );
     let data = await response.data;
-    // console.log(data);
     return data;
   } catch (error) {}
 });
@@ -44,16 +48,24 @@ export const countrySlice = createSlice({
         if ((action?.payload?.data?.length > 0 ?? false) && !state.isFetched) {
           action.payload.data.map((country: any): void => {
             let newCountry: Country = {
-              cities: country,
+              cities: country.cities,
               name: country.country,
             };
-            state.countries.push(newCountry);
+            const countriesData: any = current(state.countries);
+            let isAlreadyExists: boolean = false;
+            for (let i = 0; i < countriesData.length; i++) {
+              if (countriesData[i].name === newCountry.name) {
+                isAlreadyExists = true;
+                break;
+              }
+            }
+
+            if (!isAlreadyExists) state.countries.push(newCountry);
           });
           return;
         }
         state.error = action?.payload?.error ?? true;
         state.msg = action?.payload?.msg ?? "";
-        // console.log(state.countries);
       }
     );
   },
