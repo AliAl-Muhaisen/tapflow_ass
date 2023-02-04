@@ -20,17 +20,46 @@ const GeoUserCard = () => {
       <Typography variant="subtitle1">You did not add user yet</Typography>
     );
   }
-  const uiElement = geoUsers.map((user) => {
+  const uiElement = geoUsers.map((user,index) => {
     return (
-      <Grid item  xs={12}
-      sm={12}
-      px={0.5}
-      my={0.5}>
+      <CardUser
+        cities={user.location.cities}
+        name={user.name}
+        country={user.location.country}
+        image={user.image}
+        link={user.link}
+        key={index.toString()}
+      />
+    );
+  });
+  return (
+    <Grid container justifyContent={"center"} my={5} px={1}>
+      <Grid item xs={12} md={6}>
+        <Grid container rowSpacing={1}>
+          {uiElement}
+        </Grid>
+      </Grid>
+    </Grid>
+  );
+};
+
+export default GeoUserCard;
+
+interface CardProps {
+  image: any;
+  name: string;
+  country: string;
+  cities: string[];
+  link: string;
+}
+const CardUser = (props: CardProps) => {
+  return (
+    <>
+      <Grid item xs={12} sm={12} px={0.5} my={0.5}>
         <Paper elevation={4} color={"primary"}>
           <Grid
             container
             direction="row"
-            // justifyContent="flex-start"
             alignItems="center"
             sx={{
               py: {
@@ -46,7 +75,7 @@ const GeoUserCard = () => {
           >
             <Avatar
               alt="profile image"
-              src={user.image}
+              src={props.image}
               sx={{
                 width: 150,
                 height: 150,
@@ -54,14 +83,14 @@ const GeoUserCard = () => {
                 borderColor: "#a39b8b",
               }}
             />
-            <Grid marginLeft={8}>
+            <Grid marginLeft={4}>
               <Typography
                 variant="subtitle1"
                 sx={{
                   fontSize: 45,
                 }}
               >
-                {user.name}
+                {props.name}
               </Typography>
               <Typography
                 variant="subtitle2"
@@ -69,11 +98,11 @@ const GeoUserCard = () => {
                   fontSize: 30,
                 }}
               >
-                {user.location.country}
+                {props.country}
               </Typography>
             </Grid>
             <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-              {user.location.cities.map((city) => {
+              {props.cities.map((city) => {
                 return (
                   <Typography
                     variant="subtitle2"
@@ -88,55 +117,6 @@ const GeoUserCard = () => {
           </Grid>
         </Paper>
       </Grid>
-      //   <Card sx={{ display: 'flex' }}>
-      //   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      //     <CardContent sx={{ flex: '1 0 auto' }}>
-      //       <Typography component="div" variant="h5">
-      //       {user.name}
-      //       </Typography>
-      //       <Typography variant="subtitle1" color="text.secondary" component="div">
-      //       {user.location.country}
-      //       </Typography>
-      //     </CardContent>
-      //     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-      //       {
-      //         user.location.cities.map(city=>{
-      //           return <Typography variant="subtitle2" color="text.secondary" component="div">
-      //           {city}
-      //           </Typography>
-      //         })
-      //       }
-      //     </Box>
-      //   </Box>
-      //   <CardMedia
-      //     component="img"
-      //     sx={{ width: 151 }}
-      //     image={user.image}
-      //     alt="Live from space album cover"
-      //   />
-      // </Card>
-    );
-  });
-  return (
-    <Grid
-      container
-      justifyContent={"center"}
-      my={5}
-      px={1}
-      // xs={12}
-      // sm={10}
-      // md={6}
-      // p={2}
-      // spacing={2}
-    >
-      <Grid item xs={12} md={6}>
-        <Grid container rowSpacing={1} >
-          {uiElement}
-        </Grid>
-        
-      </Grid>
-    </Grid>
+    </>
   );
 };
-
-export default GeoUserCard;
