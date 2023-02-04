@@ -40,11 +40,12 @@ const ImageInput = (props: any) => {
               <IconButton
                 component="label"
                 aria-label="upload picture"
-                color="purple"
+
                 sx={{
                   borderBottom: "1px solid",
                   borderLeft: "1px solid",
                   borderColor: "secondary",
+                  
                 }}
               >
                 <input

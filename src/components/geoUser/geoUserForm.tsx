@@ -18,7 +18,7 @@ interface InputForm {
   link: string | "";
 }
 
-const GeoUser = (props: any) => {
+const GeoUserForm = (props: any) => {
   const countries = useAppSelector((state) => state.countrySlice.countries);
   const [cities, setCities] = useState<string[]>([]);
 
@@ -178,4 +178,4 @@ const GeoUser = (props: any) => {
   );
 };
 
-export default GeoUser;
+export default GeoUserForm;

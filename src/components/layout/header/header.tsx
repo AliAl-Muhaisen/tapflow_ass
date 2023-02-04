@@ -1,5 +1,5 @@
 import SideBar from "./sideBar";
 
-export default function Header(){
-    return <SideBar/>
+export default function Header(poprs: any) {
+  return <SideBar />;
 }

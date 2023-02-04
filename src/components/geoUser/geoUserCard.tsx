@@ -77,8 +77,8 @@ const CardUser = (props: CardProps) => {
               alt="profile image"
               src={props.image}
               sx={{
-                width: 150,
-                height: 150,
+                width: 100,
+                height: 100,
                 border: "1px solid",
                 borderColor: "#a39b8b",
               }}
@@ -87,7 +87,7 @@ const CardUser = (props: CardProps) => {
               <Typography
                 variant="subtitle1"
                 sx={{
-                  fontSize: 45,
+                  fontSize: 38,
                 }}
               >
                 {props.name}
@@ -95,7 +95,7 @@ const CardUser = (props: CardProps) => {
               <Typography
                 variant="subtitle2"
                 sx={{
-                  fontSize: 30,
+                  fontSize: 27,
                 }}
               >
                 {props.country}
