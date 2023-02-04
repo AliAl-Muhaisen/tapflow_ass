@@ -9,9 +9,13 @@ import { FormInput, CountryInput } from "../formik/inputs";
 import ImageInput from "../formik/imageInput";
 import { useFormik } from "formik";
 import { geoUserValidation } from "../../lib/validation";
-
-interface inputForm {
-  name: string;
+import { add, GeoUserType } from "../../store/geoUser/geoUserSlice";
+interface InputForm {
+  name: string | "";
+  country: string | null;
+  cities: string[] | null;
+  image: any | undefined;
+  link: string | "";
 }
 
 const GeoUser = (props: any) => {
@@ -23,8 +27,24 @@ const GeoUser = (props: any) => {
   );
   const dispatch = useAppDispatch();
 
-  const onSubmit = async (values: inputForm, actions: any) => {
-    console.log(values);
+  const onSubmit = async (values: InputForm, actions: any) => {
+    const geoUser: GeoUserType = {
+      image: values.image,
+      link: values.link,
+      name: values.name,
+      location: { country: values.country!, cities: values.cities! },
+    };
+    dispatch(add(geoUser));
+    actions.resetForm();
+    console.log(actions);
+
+    values = {
+      name: "",
+      country: null,
+      cities: null,
+      image: undefined,
+      link: "",
+    };
   };
 
   const { handleSubmit, getFieldMeta, getFieldProps, getFieldHelpers } =

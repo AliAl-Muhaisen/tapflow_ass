@@ -1,5 +1,4 @@
 import * as yup from "yup";
-// import * as Yup from 'Yup';
 const minText = (number: number = 3) => {
   return "Must be more than " + number + " characters";
 };
@@ -22,11 +21,7 @@ const NameMsg = {
 const imageMess = {
   required: "Please, select a profile image",
 };
-// declare module 'yup' {
-//   interface StringSchema extends yup.StringSchema {
-//     noOnlyWhitespace(): StringSchema;
-//   }
-// }
+
 const linkPattern =
 /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 export const geoUserValidation = yup.object().shape({
@@ -42,11 +37,5 @@ export const geoUserValidation = yup.object().shape({
   link: yup
     .string()
     .matches(linkPattern, "example www.example.com")
-    // .test("link", "aaaaa", (value) => {
-    //   // console.log("validation file value", value);
-
-    //   return value?.split(".").length < 2 ?? true;
-    // })
-    // .url()
     .required("Please enter a link"),
 });

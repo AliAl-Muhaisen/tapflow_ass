@@ -53,8 +53,8 @@ export const countrySlice = createSlice({
             };
             const countriesData: any = current(state.countries);
             let isAlreadyExists: boolean = false;
-            for (let i = 0; i < countriesData.length; i++) {
-              if (countriesData[i].name === newCountry.name) {
+            for (const element of countriesData) {
+              if (element.name === newCountry.name) {
                 isAlreadyExists = true;
                 break;
               }
