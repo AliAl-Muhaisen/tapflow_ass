@@ -35,16 +35,18 @@ const GeoUser = (props: any) => {
       location: { country: values.country!, cities: values.cities! },
     };
     dispatch(add(geoUser));
-    actions.resetForm();
     console.log(actions);
-
-    values = {
-      name: "",
-      country: null,
-      cities: null,
-      image: undefined,
-      link: "",
-    };
+    actions.resetForm({
+      values : {
+        name: "",
+        country: null,
+        cities: null,
+        image: undefined,
+        link: "",
+      }
+    });
+    actions.resetForm();
+   
   };
 
   const { handleSubmit, getFieldMeta, getFieldProps, getFieldHelpers } =
