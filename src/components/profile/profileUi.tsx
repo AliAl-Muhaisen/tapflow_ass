@@ -4,7 +4,11 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
-
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 export default function ProfileUi() {
   return (
     <Grid
@@ -148,6 +152,43 @@ export default function ProfileUi() {
         >
           Edit
         </Button>
+      </Grid>
+      <Grid item xs={12} justifyContent={"left"} display={"flex"} mt={3}>
+        <Typography
+          variant="subtitle2"
+          fontFamily="sans-serif"
+          fontWeight={"bold"}
+        >
+          section 2{" "}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} md={6} justifyContent={"left"} display={"flex"}>
+        <Typography variant="caption" fontFamily="sans-serif" align="left">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus nam
+          odio amet unde voluptas architecto maxime quis temporibus provident
+          deserunt dolor eaque porro cumque deleniti labore iusto dolorem, sit
+          repudiandae. Dolor qui sunt, porro aliquam, alias harum explicabo eius
+          asperiores numquam, optio iusto. Quae ab ea quia iste beatae dolores
+          dolorem quo veniam odio ullam. Quaerat officia rerum asperiores
+          voluptas. Reiciendis ipsa praesentium non nulla? Officia molestias
+          possimus praesentium repellat eaque voluptatem amet quod repellendus
+          recusandae perspiciatis facilis dolores aliquam dolor ut, corporis
+          ducimus repudiandae eum placeat nostrum quo. Totam.
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        justifyContent={"center"}
+        display={"flex"}
+        alignItems={"center"}
+      >
+        <FacebookIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
+        <InstagramIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
+        <TwitterIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
+        <YouTubeIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
+        <WhatsAppIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
       </Grid>
     </Grid>
   );
