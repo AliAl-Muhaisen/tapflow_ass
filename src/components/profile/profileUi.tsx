@@ -9,7 +9,9 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { useDropzone } from "react-dropzone";
 export default function ProfileUi() {
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   return (
     <Grid
       container
@@ -184,11 +186,33 @@ export default function ProfileUi() {
         display={"flex"}
         alignItems={"center"}
       >
-        <FacebookIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
-        <InstagramIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
-        <TwitterIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
-        <YouTubeIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
-        <WhatsAppIcon sx={{ fontSize: 80,borderRadius:5,border:1, mx:1 }} />
+        <FacebookIcon
+          sx={{ fontSize: 80, borderRadius: 5, border: 1, mx: 1 }}
+        />
+        <InstagramIcon
+          sx={{ fontSize: 80, borderRadius: 5, border: 1, mx: 1 }}
+        />
+        <TwitterIcon sx={{ fontSize: 80, borderRadius: 5, border: 1, mx: 1 }} />
+        <YouTubeIcon sx={{ fontSize: 80, borderRadius: 5, border: 1, mx: 1 }} />
+        <WhatsAppIcon
+          sx={{ fontSize: 80, borderRadius: 5, border: 1, mx: 1 }}
+        />
+      </Grid>
+      <Grid item>
+        <Box
+          {...getRootProps({ className: "dropzone" })}
+          sx={{
+            border: 2,
+            borderRadius: 3,
+            borderColor: "orange",
+            py:2.5,
+            px:5.5,
+            my:2
+          }}
+        >
+          <input {...getInputProps()} />
+          <Typography>Drop file here, or click to upload</Typography>
+        </Box>
       </Grid>
     </Grid>
   );
