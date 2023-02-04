@@ -96,8 +96,9 @@ export default function SideBar() {
 
         <List>
           {[
-            { name: "Profile", path: "/profile" },
             { name: "GeoUser", path: "/" },
+            { name: "Profile", path: "/profile" },
+
             { name: "I don't have a time", path: "/profile" },
             { name: "Settings", path: "/" },
           ].map((route, index) => (
