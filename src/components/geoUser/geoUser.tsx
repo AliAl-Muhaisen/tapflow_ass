@@ -80,7 +80,7 @@ const GeoUser = (props: any) => {
 
   return (
     <Box>
-      <Grid container justifyContent={"center"} my={5} px={1}>
+      <Grid container justifyContent={"center"} px={1}>
         <Grid item xs={12} md={6}>
           <form noValidate onSubmit={handleSubmit}>
             <Paper elevation={3} color={"primary"}>
