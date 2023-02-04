@@ -12,11 +12,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DoNotDisturbOnTotalSilenceIcon from "@mui/icons-material/DoNotDisturbOnTotalSilence";
 import SearchAppBar from "./appBar";
 import GeoUserPage from "../../../pages/geoUserPage";
 import ProfilePage from "../../../pages/profilePage";
-
+import TapasIcon from "@mui/icons-material/Tapas";
 import { Route, Link, Routes } from "react-router-dom";
 export const drawerWidth = 300;
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -69,7 +68,7 @@ const Drawer = styled(MuiDrawer, {
 export default function SideBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-
+  const [selectedLink, setSelectedLink] = React.useState<number>(0);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -102,7 +101,16 @@ export default function SideBar() {
             { name: "I don't have a time", path: "/profile" },
             { name: "Settings", path: "/" },
           ].map((route, index) => (
-            <Link to={route.path} key={index}>
+            <Link
+              to={route.path}
+              key={index}
+              color="red"
+              style={{
+                textDecoration: "none",
+                color: selectedLink === index ? "orange" : "gray",
+              }}
+              onClick={() => setSelectedLink(index)}
+            >
               <ListItem
                 key={route.name}
                 disablePadding
@@ -122,7 +130,9 @@ export default function SideBar() {
                       justifyContent: "center",
                     }}
                   >
-                    <DoNotDisturbOnTotalSilenceIcon />
+                    <TapasIcon
+                      color={selectedLink === index ? "warning" : "disabled"}
+                    />
                   </ListItemIcon>
 
                   <ListItemText

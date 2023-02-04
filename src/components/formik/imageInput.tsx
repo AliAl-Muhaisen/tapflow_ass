@@ -1,4 +1,3 @@
-import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
@@ -16,7 +15,6 @@ const ImageInput = (props: any) => {
     reader.onload = function (onLoadEvent: any) {
       setImage(onLoadEvent.target.result);
       props.setValue(onLoadEvent.target.result);
-      // setUploadData(undefined);
     };
     if (event.target.files[0] != null || event.target.files[0] != undefined) {
       reader.readAsDataURL(event.target.files[0]);

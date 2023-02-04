@@ -11,7 +11,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { useDropzone } from "react-dropzone";
 export default function ProfileUi() {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+  const { getRootProps, getInputProps } = useDropzone();
   return (
     <Grid
       container
@@ -205,9 +205,9 @@ export default function ProfileUi() {
             border: 2,
             borderRadius: 3,
             borderColor: "orange",
-            py:2.5,
-            px:5.5,
-            my:2
+            py: 2.5,
+            px: 5.5,
+            my: 2,
           }}
         >
           <input {...getInputProps()} />
