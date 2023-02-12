@@ -45,6 +45,7 @@ export const countrySlice = createSlice({
         if (state.countries.length > 0) {
           state.isFetched = true;
         }
+
         if ((action?.payload?.data?.length > 0 ?? false) && !state.isFetched) {
           action.payload.data.map((country: any): void => {
             let newCountry: Country = {
@@ -65,7 +66,7 @@ export const countrySlice = createSlice({
           return;
         }
         state.error = action?.payload?.error ?? true;
-        state.msg = action?.payload?.msg ?? "";
+        state.msg = action?.payload?.msg ?? "Something went wrong";
       }
     );
   },

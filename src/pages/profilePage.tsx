@@ -1,4 +1,6 @@
-import ProfileUi from "../components/profile/profileUi";
+import Index from "../components/profile/index";
+
+
 export default function ProfilePage() {
-  return <ProfileUi></ProfileUi>;
+  return <Index/>;
 }

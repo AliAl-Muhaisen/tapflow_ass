@@ -4,19 +4,16 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { useState } from "react";
 
 const ImageInput = (props: any) => {
-  const [image, setImage] = useState<string | null>(null);
 
   const handleOnChange = (event: any) => {
     const reader = new FileReader();
 
     reader.onload = function (onLoadEvent: any) {
-      setImage(onLoadEvent.target.result);
       props.setValue(onLoadEvent.target.result);
     };
-    if (event.target.files[0] != null || event.target.files[0] != undefined) {
+    if (event.target.files[0] != null || event.target.files[0] !== undefined) {
       reader.readAsDataURL(event.target.files[0]);
     }
   };
@@ -62,7 +59,7 @@ const ImageInput = (props: any) => {
           >
             <Avatar
               alt="profile image"
-              src={image ? image : "image/avatar2.png"}
+              src={props.value ? props.value : "image/avatar2.png"}
               sx={{
                 width: 150,
                 height: 150,

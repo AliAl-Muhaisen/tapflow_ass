@@ -18,7 +18,7 @@ interface InputForm {
   link: string | "";
 }
 
-const GeoUserForm = (props: any) => {
+const GeoUserForm = () => {
   const countries = useAppSelector((state) => state.countrySlice.countries);
   const [cities, setCities] = useState<string[]>([]);
 
@@ -35,26 +35,17 @@ const GeoUserForm = (props: any) => {
       location: { country: values.country!, cities: values.cities! },
     };
     dispatch(add(geoUser));
-    console.log(actions);
-    actions.resetForm({
-      values : {
-        name: "",
-        country: null,
-        cities: null,
-        image: undefined,
-        link: "",
-      }
-    });
+
     actions.resetForm();
-   
+    console.log(values)
   };
 
   const { handleSubmit, getFieldMeta, getFieldProps, getFieldHelpers } =
     useFormik({
       initialValues: {
         name: "",
-        country: null,
-        cities: null,
+        country: "",
+        cities: [],
         image: undefined,
         link: "",
       },
@@ -67,6 +58,7 @@ const GeoUserForm = (props: any) => {
     if (!isFetched) {
       dispatch(fetchCountriesData());
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeCities = (countryName: string) => {
@@ -119,6 +111,7 @@ const GeoUserForm = (props: any) => {
                     isTouched={getFieldMeta("name").touched}
                     key="name"
                     label="User Name"
+                    value={getFieldMeta("name").value}
                     name={getFieldProps("name").name}
                     onBlur={getFieldProps("name").onBlur}
                     onChange={getFieldProps("name").onChange}
@@ -130,6 +123,7 @@ const GeoUserForm = (props: any) => {
                     isTouched={getFieldMeta("link").touched}
                     key="link"
                     label="Link"
+                    value={getFieldMeta("link").value}
                     name={getFieldProps("link").name}
                     onBlur={getFieldProps("link").onBlur}
                     onChange={getFieldProps("link").onChange}
@@ -159,7 +153,6 @@ const GeoUserForm = (props: any) => {
                     {...getFieldProps("cities")}
                     {...getFieldHelpers("cities")}
                     label={"Choose a Cities"}
-                    // changeCities={(value){}}
                     multiple={true}
                   />
                 </Grid>

@@ -12,6 +12,7 @@ const countryMess = {
 
 const citiesMess = {
   required: "Please, select a cities",
+  min:"Please select at least one city",
 };
 const NameMsg = {
   min: minText(),
@@ -32,7 +33,7 @@ export const geoUserValidation = yup.object().shape({
     .max(15, NameMsg.max)
     .required(NameMsg.required),
   country: yup.string().required(countryMess.required).nullable(),
-  cities: yup.array().required(citiesMess.required).nullable(),
+  cities: yup.array().min(1,citiesMess.min).required(citiesMess.required),
   image: yup.mixed().required(imageMess.required),
   link: yup
     .string()

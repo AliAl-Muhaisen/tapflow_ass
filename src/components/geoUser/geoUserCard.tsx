@@ -1,12 +1,9 @@
 import { useAppSelector } from "../../hooks/redux";
 import { GeoUserType } from "../../store/geoUser/geoUserSlice";
 import Avatar from "@mui/material/Avatar";
-import * as React from "react";
-import { useTheme } from "@mui/material/styles";
+
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -15,12 +12,14 @@ const GeoUserCard = () => {
   const geoUsers: GeoUserType[] | [] = useAppSelector(
     (state) => state.geoUserSlice.geoUsers
   );
-  if (geoUsers.length == 0) {
+  if (geoUsers.length === 0) {
     return (
-      <Typography variant="subtitle1">You did not add user yet</Typography>
+      <Typography variant="subtitle1" textAlign={"center"} fontWeight={"bold"}>
+        You did not add user yet
+      </Typography>
     );
   }
-  const uiElement = geoUsers.map((user,index) => {
+  const uiElement = geoUsers.map((user, index) => {
     return (
       <CardUser
         cities={user.location.cities}
@@ -28,7 +27,7 @@ const GeoUserCard = () => {
         country={user.location.country}
         image={user.image}
         link={user.link}
-        key={index.toString()}
+        key={`${user.link}${user.name}${user.location.country}`}
       />
     );
   });
@@ -102,17 +101,16 @@ const CardUser = (props: CardProps) => {
               </Typography>
             </Grid>
             <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-              {props.cities.map((city) => {
-                return (
-                  <Typography
-                    variant="subtitle2"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    {city}
-                  </Typography>
-                );
-              })}
+              {props.cities.map((city) => (
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  component="div"
+                  key={city}
+                >
+                  {city}
+                </Typography>
+              ))}
             </Box>
           </Grid>
         </Paper>

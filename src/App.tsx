@@ -4,7 +4,7 @@ import Header from "./components/layout/header/header";
 import { Routes, Route } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
+    <div >
       <Header>
         {/* <GeoUser />
         <GeoUserCard /> */}

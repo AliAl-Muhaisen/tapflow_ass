@@ -1,10 +1,10 @@
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 import { ChangeEventHandler, FocusEventHandler } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 
 interface FormInputProps {
   name: any;
+  value:any;
   error: string | undefined;
   isTouched: boolean;
   key: string;
@@ -17,6 +17,7 @@ interface FormInputProps {
 export const FormInput = (props: FormInputProps) => {
   return (
     <TextField
+    value={props.value}
       fullWidth
       id={props.key}
       key={props.key + "key"}
@@ -35,21 +36,21 @@ export const CountryInput = (props: any) => {
   return (
     <Autocomplete
       multiple={props.multiple || false}
-      //   groupBy={(option: string) => option[0]}
+        groupBy={(option: string) => option[0]}
       key={props.key}
-      id={props.key}
-
+      id={props.label}
+ 
+      value={props.value}
       options={props.options}
       autoHighlight
       onChange={(event: any, newValue: any | null) => {
-        console.log("newValue");
-        console.log(newValue);
+      
         props.setValue(newValue || null);
         try {
           props.changeCities(newValue);
         } catch (error) {}
 
-        if (newValue?.code != undefined) {
+        if (newValue?.code !==undefined) {
           props.setTouched(false);
         } else {
           props.setTouched(true);
@@ -91,7 +92,7 @@ export const CitiesInput = (props: any) => {
       onChange={(event: any, newValue: any | null) => {
         props.setValue(newValue?.code || null);
 
-        if (newValue?.code != undefined) {
+        if (newValue?.code !== undefined) {
           props.setTouched(false);
         } else {
           props.setTouched(true);

@@ -6,10 +6,9 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material//Divider";
 import SearchIcon from "@mui/icons-material/Search";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { drawerWidth } from "./sideBar";
-import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
+import MenuIcon from "@mui/icons-material/Menu";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -21,6 +20,10 @@ const Search = styled("div")(({ theme }) => ({
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(2),
     width: "auto",
   },
 }));
@@ -55,6 +58,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -63,64 +71,74 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
 }));
 
-export default function SearchAppBar(porps:{open:boolean,handleDrawerOpen:any}) {
+export default function SearchAppBar(props: {
+  open: boolean;
+  showMenuIcon:boolean;
+  handleDrawerOpenClose: React.MouseEventHandler<HTMLButtonElement> | undefined;
+}) {
   return (
-    <Box>
-      <AppBar
-        position="fixed"
-        sx={{
-          justifyContent: "space-between",
-          backgroundColor: "white",
-          color: "black",
-        }}
-      >
-        <Toolbar>
-        <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={porps.handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(porps.open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-            </IconButton>
-          <Typography variant="h6" sx={{ my: 2 }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        justifyContent: "space-between",
+        backgroundColor: "white",
+        color: "black",
+        // height:150,
+        // maxHeight:150
+        // py: { xs: 1.2, md: 1.5 },
+        px:1
+      }}
+    >
+      <Toolbar>
+        {props.showMenuIcon && <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          onClick={props.handleDrawerOpenClose}
+          edge="start"
+          sx={{
+            marginRight: 5,
+            ...(props.open && { display: "block" }),
+          }}
+        >
+          <MenuIcon />
+        </IconButton>}
+        <Box
+          component="img"
+          sx={{
+            // height: 233,
+            // width: 350,
+            py:{xs:1,md:2},
+            maxHeight: { xs: 50, md: 117 },
+            maxWidth: { xs: 110, md: 140 },
+          }}
+          alt="website logo"
+          src="image/logo.svg"
+        />
+        {/* <Typography variant="h6" sx={{ my: 2 }}>
             TapFlow
-          </Typography>
-          <Divider />
+          </Typography> */}
+        <Divider />
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
-          <Search sx={{ borderRadius: 10, maxWidth: 200 }}>
-            <StyledInputBase
-              endAdornment={
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-              }
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ flexGrow: 1 }}
+        ></Typography>
+        <Search sx={{ borderRadius: 10, maxWidth: 200 }}>
+          <StyledInputBase
+            endAdornment={
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+            }
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
+      </Toolbar>
+    </AppBar>
   );
 }
