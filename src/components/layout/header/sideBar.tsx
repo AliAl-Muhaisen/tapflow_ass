@@ -56,49 +56,52 @@ export default function SideBar() {
             { name: "I don't have a time", path: "/profile" },
             { name: "Settings", path: "/" },
           ].map((route, index) => (
-            <Link
-              to={route.path}
-              key={index}
-              color="red"
-              
-              style={{
-                textDecoration: "none",
-                color: selectedLink === index ? "orange" : "gray",
-                backgroundColor:"red",
-              }}
-              onClick={() => {
-                setSelectedLink(index);
-                handleDrawerOpenClose();
-              }}
-            >
-              <ListItem
-                key={route.name}
-                disablePadding
-                sx={{ display: "block" }}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <TapasIcon
-                      color={selectedLink === index ? "warning" : "disabled"}
-                    />
-                  </ListItemIcon>
-
-                  <ListItemText primary={route.name} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+           <Box sx={{backgroundColor:selectedLink === index ? 'rgb(255, 245, 86)' : "", my:1,borderRadius:5}}>
+             <Link
+               to={route.path}
+               key={index}
+               color="red"
+               
+               style={{
+                 textDecoration: "none",
+                 color: selectedLink === index ? "orange" : "gray",
+                 backgroundColor:"orange",
+                 
+               }}
+               onClick={() => {
+                 setSelectedLink(index);
+                 handleDrawerOpenClose();
+               }}
+             >
+               <ListItem
+                 key={route.name}
+                 disablePadding
+                 sx={{ display: "block" }}
+               >
+                 <ListItemButton
+                   sx={{
+                     minHeight: 48,
+                     justifyContent: open ? "initial" : "center",
+                     px: 2.5,
+                   }}
+                 >
+                   <ListItemIcon
+                     sx={{
+                       minWidth: 0,
+                       mr: open ? 3 : "auto",
+                       justifyContent: "center",
+                     }}
+                   >
+                     <TapasIcon
+                       color={selectedLink === index ? "warning" : "disabled"}
+                     />
+                   </ListItemIcon>
+            
+                   <ListItemText primary={route.name} />
+                 </ListItemButton>
+               </ListItem>
+             </Link>
+           </Box>
           ))}
         </List>
       </Drawer>
