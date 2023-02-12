@@ -60,9 +60,11 @@ export default function SideBar() {
               to={route.path}
               key={index}
               color="red"
+              
               style={{
                 textDecoration: "none",
                 color: selectedLink === index ? "orange" : "gray",
+                backgroundColor:"red",
               }}
               onClick={() => {
                 setSelectedLink(index);

@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import type { RootState } from "../index";
 import axios, { AxiosResponse } from "axios";
-
+import { toggle, changeStatus, UiType } from "../ui/uiSlice";
 type Countries = {
   countries: Country[];
   error: boolean | string;
@@ -24,15 +24,27 @@ const initialState: Countries = {
   isFetched: false,
 };
 
-export const fetchCountriesData = createAsyncThunk("countries", async () => {
-  try {
-    let response: AxiosResponse = await axios.get(
-      "https://countriesnow.space/api/v0.1/countries"
-    );
-    let data = await response.data;
-    return data;
-  } catch (error) {}
-});
+export const fetchCountriesData = createAsyncThunk(
+  "countries",
+  async (param, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(toggle(true));
+      let response: AxiosResponse = await axios.get(
+        "https://countriesnow.space/api/v0.1/countries"
+      );
+      let data = await response.data;
+      let uiStatus:UiType={
+        loading:false,
+        error:data.error,
+        msg:data.msg
+      }
+      thunkAPI.dispatch(changeStatus(uiStatus));
+      thunkAPI.dispatch(toggle(false));
+
+      return data;
+    } catch (error) {}
+  }
+);
 export const countrySlice = createSlice({
   name: "countries",
   initialState,

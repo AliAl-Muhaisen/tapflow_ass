@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../index";
-
 interface Country {
   country: string;
   cities: string[];

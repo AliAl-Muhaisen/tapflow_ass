@@ -1,18 +1,17 @@
 import "./App.css";
-
+import OverlayLoading from "./components/ui/loading/overlayLoading";
 import Header from "./components/layout/header/header";
-import { Routes, Route } from "react-router-dom";
+import { useAppSelector } from "./hooks/redux";
+import FlashBar from "./components/ui/loading/flashBar";
 function App() {
+  const loading: boolean = useAppSelector((state) => state.uiSlice.loading);
+  const msg: string = useAppSelector((state) => state.uiSlice.msg);
   return (
-    <div >
-      <Header>
-        {/* <GeoUser />
-        <GeoUserCard /> */}
-        {/* <Routes>
-          <Route path="/" element={<Header />} />
-          <Route path="/topics" element={<GeoUser />} />
-        </Routes> */}
-      </Header>
+    <div>
+      <Header />
+
+      <OverlayLoading open={loading}/>
+      {msg.length>1 &&<FlashBar/>}
     </div>
   );
 }

@@ -1,13 +1,11 @@
 import { useAppSelector } from "../../hooks/redux";
 import { GeoUserType } from "../../store/geoUser/geoUserSlice";
-import Avatar from "@mui/material/Avatar";
-
-import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-
+import React, { Suspense } from "react";
+import Loading from "../ui/loading/loading";
+const CardUser = React.lazy(() => import("./cardUser"));
 const GeoUserCard = () => {
   const geoUsers: GeoUserType[] | [] = useAppSelector(
     (state) => state.geoUserSlice.geoUsers
@@ -21,14 +19,16 @@ const GeoUserCard = () => {
   }
   const uiElement = geoUsers.map((user, index) => {
     return (
-      <CardUser
-        cities={user.location.cities}
-        name={user.name}
-        country={user.location.country}
-        image={user.image}
-        link={user.link}
-        key={`${user.link}${user.name}${user.location.country}`}
-      />
+      <Suspense fallback={<Loading />}     key={index.toString()}>
+        <CardUser
+          cities={user.location.cities}
+          name={user.name}
+          country={user.location.country}
+          image={user.image}
+          link={user.link}
+      
+        />{" "}
+      </Suspense>
     );
   });
   return (
@@ -43,78 +43,3 @@ const GeoUserCard = () => {
 };
 
 export default GeoUserCard;
-
-interface CardProps {
-  image: any;
-  name: string;
-  country: string;
-  cities: string[];
-  link: string;
-}
-const CardUser = (props: CardProps) => {
-  return (
-    <>
-      <Grid item xs={12} sm={12} px={0.5} my={0.5}>
-        <Paper elevation={4} color={"primary"}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            sx={{
-              py: {
-                sm: 4,
-                xs: 3,
-              },
-              px: {
-                sm: 4,
-                xs: 1.8,
-              },
-            }}
-            justifyContent={"space-between"}
-          >
-            <Avatar
-              alt="profile image"
-              src={props.image}
-              sx={{
-                width: 100,
-                height: 100,
-                border: "1px solid",
-                borderColor: "#a39b8b",
-              }}
-            />
-            <Grid marginLeft={4}>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  fontSize: 38,
-                }}
-              >
-                {props.name}
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  fontSize: 27,
-                }}
-              >
-                {props.country}
-              </Typography>
-            </Grid>
-            <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-              {props.cities.map((city) => (
-                <Typography
-                  variant="subtitle2"
-                  color="text.secondary"
-                  component="div"
-                  key={city}
-                >
-                  {city}
-                </Typography>
-              ))}
-            </Box>
-          </Grid>
-        </Paper>
-      </Grid>
-    </>
-  );
-};
